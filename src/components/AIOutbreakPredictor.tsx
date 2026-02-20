@@ -6,12 +6,13 @@ import { Sparkles, ShieldCheck, Loader2, Globe, MessageSquare, Activity, Hospita
 import { predictDiseaseOutbreaks, type PredictDiseaseOutbreaksOutput } from "@/ai/flows/predict-disease-outbreaks";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function AIOutbreakPredictor() {
   const [loading, setLoading] = useState(true);
   const [prediction, setPrediction] = useState<PredictDiseaseOutbreaksOutput | null>(null);
   const [logs, setLogs] = useState<string[]>([]);
-  const logEndRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const rawDataSources = {
     newsData: "Hyper-local OSINT scrapers detecting 'flu-cluster' spikes in Noida/Greater Noida bioregions. Global bio-surveillance nodes reporting H1N1-v2 volatility. Real-time media sentiment trending towards 'pediatric respiratory distress' in urban cohorts.",
@@ -23,24 +24,24 @@ export function AIOutbreakPredictor() {
 
   useEffect(() => {
     const addLog = (msg: string) => {
-      setLogs(prev => [...prev.slice(-15), `[${new Date().toLocaleTimeString()}] ${msg}`]);
+      setLogs(prev => [...prev.slice(-20), `[${new Date().toLocaleTimeString()}] ${msg}`]);
     };
 
     const runAutoIngestion = async () => {
       addLog("Initializing Multi-Source Ingestion Engine...");
-      await new Promise(r => setTimeout(r, 800));
-      addLog("Connection established with ABDM 3.1 Gateway.");
       await new Promise(r => setTimeout(r, 600));
+      addLog("Connection established with ABDM 3.1 Gateway.");
+      await new Promise(r => setTimeout(r, 500));
       addLog("Scraping OSINT news vectors for Delhi-NCR...");
+      await new Promise(r => setTimeout(r, 600));
+      addLog("Normalizing IoT telemetry from Niramaya Cloud.");
       await new Promise(r => setTimeout(r, 700));
-      addLog("Normalizing IoT telemetry from Niramaya Cloud (50k active nodes).");
-      await new Promise(r => setTimeout(r, 900));
       addLog("Parsing Social Forum sentiment (India/Health sub-threads).");
       
       try {
         const result = await predictDiseaseOutbreaks(rawDataSources);
         addLog("Prediction Engine: Processing Alpha Signals...");
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise(r => setTimeout(r, 800));
         setPrediction(result);
         addLog("Signal Detection Complete. Outbreak parameters localized.");
       } catch (error) {
@@ -54,8 +55,11 @@ export function AIOutbreakPredictor() {
     runAutoIngestion();
   }, []);
 
+  // Internal auto-scroll for terminal ONLY (doesn't move the whole page)
   useEffect(() => {
-    logEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [logs]);
 
   return (
@@ -73,17 +77,23 @@ export function AIOutbreakPredictor() {
       </CardHeader>
       
       <CardContent className="space-y-6">
-        {/* Raw Ingestion Terminal */}
-        <div className="bg-black/90 rounded-lg p-3 font-mono text-[9px] text-green-400 overflow-hidden border border-accent/20 h-32 relative">
-          <div className="absolute top-2 right-2 opacity-50">
+        {/* Raw Ingestion Terminal - Internal Scroll ONLY */}
+        <div className="bg-black/90 rounded-lg p-3 font-mono text-[10px] text-green-400 border border-accent/20 h-40 relative">
+          <div className="absolute top-2 right-2 opacity-30 z-20">
             <Terminal className="h-3 w-3" />
           </div>
-          <div className="space-y-1">
-            <p className="text-white/60 mb-2 border-b border-white/10 pb-1">LIVE INGESTION STREAM (AES-256)</p>
+          <div 
+            ref={scrollRef}
+            className="h-full overflow-y-auto scrollbar-hide space-y-1.5 pr-2"
+          >
+            <p className="text-white/40 mb-2 border-b border-white/10 pb-1 text-[9px] uppercase tracking-widest sticky top-0 bg-black/90 z-10">
+              LIVE INGESTION STREAM (AES-256)
+            </p>
             {logs.map((log, i) => (
-              <p key={i} className="animate-in fade-in duration-300">{log}</p>
+              <p key={i} className="animate-in fade-in duration-300 leading-tight">
+                <span className="text-green-600 mr-2">»</span> {log}
+              </p>
             ))}
-            <div ref={logEndRef} />
           </div>
         </div>
 
