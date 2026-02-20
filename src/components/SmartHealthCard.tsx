@@ -35,8 +35,8 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
               <img src="https://picsum.photos/seed/india/20/20" className="h-4 w-4 rounded-sm" alt="GOI" />
               <span className="text-[10px] font-bold text-accent/70 uppercase tracking-widest">Government of India</span>
             </div>
-            <CardTitle className="text-xl font-headline text-accent font-black tracking-tight">ABHA CARD</CardTitle>
-            <CardDescription className="text-[9px] font-bold tracking-widest uppercase opacity-70">Ayushman Bharat Health Account</CardDescription>
+            <CardTitle className="text-xl font-headline text-accent font-black tracking-tight uppercase">Ayushman Card</CardTitle>
+            <CardDescription className="text-[9px] font-bold tracking-widest uppercase opacity-70">ABHA Digital Health Identity</CardDescription>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-[8px] border-accent/20 text-accent font-bold bg-white">ABDM 3.1</Badge>
@@ -68,7 +68,7 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
               <div className="font-black text-2xl tracking-tighter text-foreground uppercase">{patientName}</div>
               <div className="flex items-center justify-center gap-4">
                  <p className="text-[10px] font-bold text-muted-foreground flex items-center gap-1">
-                  <ShieldCheck className="h-3 w-3 text-teal-600" /> AES-256 SECURE
+                  <ShieldCheck className="h-3 w-3 text-teal-600" /> NIRAMAYA SECURE
                 </p>
                 <p className="text-[10px] font-bold text-muted-foreground flex items-center gap-1">
                   <Smartphone className="h-3 w-3 text-blue-600" /> NFC ENABLED
@@ -89,7 +89,7 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
 
             <div className="pt-2">
               <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-teal-600">
-                <CheckCircle2 className="h-3 w-3" /> VERIFIED CITIZEN RECORD
+                <CheckCircle2 className="h-3 w-3" /> SWYAM-VERIFIED CITIZEN
               </div>
             </div>
           </div>

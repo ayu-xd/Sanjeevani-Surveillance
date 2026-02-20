@@ -10,7 +10,7 @@ import { LocationMonitor } from "@/components/LocationMonitor";
 import { RegionalHeatMap } from "@/components/RegionalHeatMap";
 import { MedicalHistory } from "@/components/MedicalHistory";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { HeartPulse, ShieldCheck, UserCircle, Activity, Sparkles, MapPin, Search, CalendarClock, Download, BellRing } from "lucide-react";
+import { HeartPulse, ShieldCheck, UserCircle, Activity, Sparkles, MapPin, Search, CalendarClock, Download, BellRing, Leaf } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -60,11 +60,11 @@ export default function HealthWiseApp() {
       {/* Hero / Marquee Section */}
       <div className="bg-accent/5 border-b py-2 px-6 overflow-hidden whitespace-nowrap">
         <div className="flex items-center gap-8 animate-marquee text-[10px] font-medium text-accent uppercase tracking-tighter">
-          <span>● NDHM Cloud Sync Active</span>
+          <span>● Sanjeevani Cloud Sync Active</span>
           <span>● 766 Districts reporting real-time</span>
           <span>● AI Outbreak prediction confidence: 94.2%</span>
           <span>● ABDM Version 3.1 Legacy Support Enabled</span>
-          <span className="opacity-50">● Secure Sovereignty Infrastructure Phase II</span>
+          <span className="opacity-50">● Niramaya Sovereignty Infrastructure Phase II</span>
         </div>
       </div>
 
@@ -73,15 +73,15 @@ export default function HealthWiseApp() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
               <h2 className="text-3xl font-headline font-bold text-accent">Unified Health Interface</h2>
-              <p className="text-muted-foreground mt-1 text-sm">Welcome back. Accessing encrypted records via your authenticated ABHA identity.</p>
+              <p className="text-muted-foreground mt-1 text-sm">Welcome back. Accessing encrypted records via your Swasthya ID.</p>
             </div>
             
             <TabsList className="grid grid-cols-2 md:w-[360px] bg-white border border-accent/10 shadow-sm p-1">
               <TabsTrigger value="patient" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
-                <UserCircle className="h-4 w-4 mr-2" /> Citizen Access
+                <UserCircle className="h-4 w-4 mr-2" /> Swasthya Portal
               </TabsTrigger>
               <TabsTrigger value="admin" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
-                <ShieldCheck className="h-4 w-4 mr-2" /> Authority Portal
+                <ShieldCheck className="h-4 w-4 mr-2" /> Sanjeevani Command
               </TabsTrigger>
             </TabsList>
           </div>
@@ -99,7 +99,7 @@ export default function HealthWiseApp() {
                 <Card className="border-accent/10 bg-white shadow-sm overflow-hidden">
                   <CardHeader className="pb-4 bg-muted/10 border-b">
                     <CardTitle className="text-xs font-bold flex items-center gap-2 text-accent uppercase tracking-widest">
-                      <Activity className="h-4 w-4" /> Live Vitals (IoT Sync)
+                      <Activity className="h-4 w-4" /> Swasthya Vitals (IoT Sync)
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-6 space-y-4">
@@ -127,13 +127,13 @@ export default function HealthWiseApp() {
 
                 <Card className="border-accent/10 bg-accent text-white overflow-hidden relative group cursor-pointer shadow-lg shadow-accent/20">
                   <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                    <ShieldCheck className="h-24 w-24" />
+                    <Leaf className="h-24 w-24" />
                   </div>
                   <CardContent className="pt-6 relative z-10">
                     <h4 className="font-headline font-bold text-lg mb-1 flex items-center gap-2">
-                      NDHM Secure: Active <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                      Sanjeevani Secure: Active <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
                     </h4>
-                    <p className="text-[10px] text-white/80 leading-relaxed">Your data is stored in the National Health Cloud using AES-256 encryption. Consent is required for every third-party hospital access.</p>
+                    <p className="text-[10px] text-white/80 leading-relaxed">Your data is stored in the National Niramaya Cloud using AES-256 encryption. Consent is required for every medical access.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -157,8 +157,8 @@ export default function HealthWiseApp() {
                     <ShieldCheck className="h-5 w-5 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-accent uppercase tracking-widest">Surveillance Command Center</h3>
-                    <p className="text-[10px] text-muted-foreground">Monitoring 766 Districts • Real-time Health Data Aggregation</p>
+                    <h3 className="text-sm font-bold text-accent uppercase tracking-widest">Sanjeevani Surveillance Center</h3>
+                    <p className="text-[10px] text-muted-foreground">Monitoring 766 Districts • Real-time Niramaya Data Aggregation</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 w-full md:w-auto">
@@ -200,8 +200,8 @@ export default function HealthWiseApp() {
                 {[
                   { title: "National Active Cases", value: "84,203", icon: Activity, trend: "down", trendVal: "8%", color: "text-blue-600" },
                   { title: "Red Cluster Districts", value: "12", icon: MapPin, trend: "up", trendVal: "2", color: "text-red-600" },
-                  { title: "Sovereign Cloud Latency", value: "1.8ms", icon: ShieldCheck, color: "text-purple-600" },
-                  { title: "AI Preventive Hits", value: "156", icon: Sparkles, trend: "up", trendVal: "12", color: "text-amber-600" },
+                  { title: "Niramaya Latency", value: "1.8ms", icon: ShieldCheck, color: "text-purple-600" },
+                  { title: "Sanjeevani AI Hits", value: "156", icon: Sparkles, trend: "up", trendVal: "12", color: "text-amber-600" },
                 ].map((stat, i) => (
                   <div key={i} className="p-6 border-r last:border-r-0 hover:bg-muted/5 transition-colors">
                     <div className="flex items-start justify-between">
@@ -247,7 +247,7 @@ export default function HealthWiseApp() {
           </div>
           <p className="text-sm text-center text-muted-foreground max-w-2xl leading-relaxed">
             Arogya Bharat is India's unified digital health infrastructure under the National Health Mission. 
-            Powered by ABDM protocols, ensuring privacy-first sovereign data management for 1.4 billion citizens.
+            Powered by Sanjeevani AI and ABDM protocols, ensuring Niramaya (disease-free) life for 1.4 billion citizens.
           </p>
           <div className="h-1 w-full max-w-xs flex">
             <div className="flex-1 bg-orange-400" />
@@ -258,7 +258,7 @@ export default function HealthWiseApp() {
             <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-accent transition-colors">ABDM Compliance</a>
             <a href="#" className="hover:text-accent transition-colors">API Docs</a>
-            <a href="#" className="hover:text-accent transition-colors">MoHFW Gateway</a>
+            <a href="#" className="hover:text-accent transition-colors">Jan Kalyan Gateway</a>
           </div>
           <p className="text-[10px] mt-4 opacity-50 font-bold uppercase">© 2025 Ministry of Health & Family Welfare. Supporting Digital India Initiative.</p>
         </div>

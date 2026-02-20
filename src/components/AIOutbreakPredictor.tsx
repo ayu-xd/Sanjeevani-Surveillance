@@ -33,7 +33,7 @@ export function AIOutbreakPredictor() {
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="space-y-1">
           <CardTitle className="text-xl font-headline text-accent flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-teal-600" /> AI Outbreak Forecaster
+            <Sparkles className="h-5 w-5 text-teal-600" /> Sanjeevani AI Forecaster
           </CardTitle>
           <CardDescription>Predicting regional trends for Indian districts</CardDescription>
         </div>
@@ -44,7 +44,7 @@ export function AIOutbreakPredictor() {
           className="border-accent text-accent hover:bg-accent hover:text-white"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
-          Run AI Forecast
+          Run Forecast
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -87,7 +87,7 @@ export function AIOutbreakPredictor() {
           </>
         ) : (
           <div className="text-center py-12 text-muted-foreground border-2 border-dashed rounded-xl border-accent/10">
-            <p>Initiate AI Analysis for real-time district forecasts</p>
+            <p>Initiate Sanjeevani Analysis for district forecasts</p>
           </div>
         )}
       </CardContent>
