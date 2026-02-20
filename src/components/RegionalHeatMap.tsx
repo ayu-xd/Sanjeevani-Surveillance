@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Map, Info, AlertTriangle, Crosshair } from "lucide-react";
@@ -13,7 +14,24 @@ const HEAT_DATA = [
   { zone: "Central (Bhopal/NGP)", intensity: 30, cases: "850", trend: "0%", color: "bg-green-500", risk: "Low" },
 ];
 
+interface MapCell {
+  color: string;
+  opacity: number;
+}
+
 export function RegionalHeatMap() {
+  const [cells, setCells] = useState<MapCell[]>([]);
+
+  useEffect(() => {
+    // Generate random map data only on the client to prevent hydration errors
+    const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-500', 'bg-orange-400'];
+    const newCells = Array.from({ length: 12 }).map(() => ({
+      color: colors[Math.floor(Math.random() * colors.length)],
+      opacity: Math.random() * 0.8 + 0.2,
+    }));
+    setCells(newCells);
+  }, []);
+
   return (
     <Card className="border-accent/10 bg-white h-full shadow-sm overflow-hidden">
       <CardHeader className="pb-2 bg-accent/[0.02] border-b">
@@ -45,18 +63,13 @@ export function RegionalHeatMap() {
             </div>
             
             <div className="grid grid-cols-4 grid-rows-3 gap-2 p-4 w-full h-full opacity-80">
-              {Array.from({ length: 12 }).map((_, i) => {
-                const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-500', 'bg-orange-400'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                const opacity = Math.random() * 0.8 + 0.2;
-                return (
-                  <div 
-                    key={i} 
-                    className={`rounded-md transition-all duration-1000 ${randomColor} shadow-lg`}
-                    style={{ opacity }}
-                  />
-                );
-              })}
+              {(cells.length > 0 ? cells : Array(12).fill({ color: 'bg-muted/10', opacity: 0.1 })).map((cell, i) => (
+                <div 
+                  key={i} 
+                  className={`rounded-md transition-all duration-1000 ${cell.color} shadow-lg`}
+                  style={{ opacity: cell.opacity }}
+                />
+              ))}
             </div>
 
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
