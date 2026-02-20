@@ -17,7 +17,8 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function HealthWiseApp() {
-  const [activeTab, setActiveTab] = useState("patient");
+  // Set "admin" as the default tab to prioritize surveillance
+  const [activeTab, setActiveTab] = useState("admin");
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 font-body">
@@ -70,77 +71,16 @@ export default function HealthWiseApp() {
       <main className="max-w-7xl mx-auto p-4 md:p-8 space-y-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
           <div className="flex justify-center md:justify-end mb-4">
-            <TabsList className="grid grid-cols-2 md:w-[360px] bg-white border border-accent/10 shadow-sm p-1">
+            <TabsList className="grid grid-cols-2 md:w-[400px] bg-white border border-accent/10 shadow-sm p-1">
+              {/* Surveillance Admin is now the first trigger */}
+              <TabsTrigger value="admin" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
+                <ShieldCheck className="h-4 w-4 mr-2" /> Surveillance Admin
+              </TabsTrigger>
               <TabsTrigger value="patient" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
                 <UserCircle className="h-4 w-4 mr-2" /> Swasthya Portal
               </TabsTrigger>
-              <TabsTrigger value="admin" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
-                <ShieldCheck className="h-4 w-4 mr-2" /> Sanjeevani Command
-              </TabsTrigger>
             </TabsList>
           </div>
-
-          <TabsContent value="patient" className="space-y-8 mt-0 animate-in fade-in duration-500">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* Left Column: ID & Vitals */}
-              <div className="lg:col-span-4 space-y-6">
-                <SmartHealthCard 
-                  patientName="Tanmay Patil" 
-                  patientId="ABHA-1234-5678-9012" 
-                  bloodGroup="B Positive"
-                />
-                
-                <Card className="border-accent/10 bg-white shadow-sm overflow-hidden">
-                  <CardHeader className="pb-4 bg-muted/10 border-b">
-                    <CardTitle className="text-xs font-bold flex items-center gap-2 text-accent uppercase tracking-widest">
-                      <Activity className="h-4 w-4" /> Swasthya Vitals (IoT Sync)
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-6 space-y-4">
-                    {[
-                      { label: "Blood Pressure", value: "118/76", unit: "mmHg", status: "Optimal", color: "text-teal-600" },
-                      { label: "Heart Rate", value: "68", unit: "bpm", status: "Steady", color: "text-teal-600" },
-                      { label: "Glucose Level", value: "92", unit: "mg/dL", status: "Normal", color: "text-teal-600" },
-                      { label: "Oxygen Saturation", value: "99", unit: "%", status: "Healthy", color: "text-teal-600" },
-                    ].map((vital) => (
-                      <div key={vital.label} className="flex justify-between items-center group">
-                        <div className="space-y-0.5">
-                          <span className="text-[10px] text-muted-foreground block font-bold uppercase">{vital.label}</span>
-                          <div className="flex items-baseline gap-1">
-                            <span className="font-bold text-lg">{vital.value}</span>
-                            <span className="text-[10px] text-muted-foreground font-mono">{vital.unit}</span>
-                          </div>
-                        </div>
-                        <Badge variant="outline" className={`text-[10px] h-5 ${vital.color} border-current`}>
-                          {vital.status}
-                        </Badge>
-                      </div>
-                    ))}
-                  </CardContent>
-                </Card>
-
-                <Card className="border-accent/10 bg-accent text-white overflow-hidden relative group cursor-pointer shadow-lg shadow-accent/20">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-                    <Leaf className="h-24 w-24" />
-                  </div>
-                  <CardContent className="pt-6 relative z-10">
-                    <h4 className="font-headline font-bold text-lg mb-1 flex items-center gap-2">
-                      Sanjeevani Secure: Active <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                    </h4>
-                    <p className="text-[10px] text-white/80 leading-relaxed">Your data is stored in the National Niramaya Cloud using AES-256 encryption. Consent is required for every medical access.</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Right Column: History & Prescriptions */}
-              <div className="lg:col-span-8 space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <MedicalHistory />
-                  <PrescriptionList />
-                </div>
-              </div>
-            </div>
-          </TabsContent>
 
           <TabsContent value="admin" className="space-y-8 mt-0 animate-in fade-in duration-500">
             {/* Admin Command Center Header */}
@@ -226,6 +166,68 @@ export default function HealthWiseApp() {
                   <div className="lg:col-span-4 space-y-6">
                     <AIOutbreakPredictor />
                   </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="patient" className="space-y-8 mt-0 animate-in fade-in duration-500">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Left Column: ID & Vitals */}
+              <div className="lg:col-span-4 space-y-6">
+                <SmartHealthCard 
+                  patientName="Tanmay Patil" 
+                  patientId="ABHA-1234-5678-9012" 
+                  bloodGroup="B Positive"
+                />
+                
+                <Card className="border-accent/10 bg-white shadow-sm overflow-hidden">
+                  <CardHeader className="pb-4 bg-muted/10 border-b">
+                    <CardTitle className="text-xs font-bold flex items-center gap-2 text-accent uppercase tracking-widest">
+                      <Activity className="h-4 w-4" /> Swasthya Vitals (IoT Sync)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-6 space-y-4">
+                    {[
+                      { label: "Blood Pressure", value: "118/76", unit: "mmHg", status: "Optimal", color: "text-teal-600" },
+                      { label: "Heart Rate", value: "68", unit: "bpm", status: "Steady", color: "text-teal-600" },
+                      { label: "Glucose Level", value: "92", unit: "mg/dL", status: "Normal", color: "text-teal-600" },
+                      { label: "Oxygen Saturation", value: "99", unit: "%", status: "Healthy", color: "text-teal-600" },
+                    ].map((vital) => (
+                      <div key={vital.label} className="flex justify-between items-center group">
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] text-muted-foreground block font-bold uppercase">{vital.label}</span>
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-bold text-lg">{vital.value}</span>
+                            <span className="text-[10px] text-muted-foreground font-mono">{vital.unit}</span>
+                          </div>
+                        </div>
+                        <Badge variant="outline" className={`text-[10px] h-5 ${vital.color} border-current`}>
+                          {vital.status}
+                        </Badge>
+                      </div>
+                    ))}
+                  </CardContent>
+                </Card>
+
+                <Card className="border-accent/10 bg-accent text-white overflow-hidden relative group cursor-pointer shadow-lg shadow-accent/20">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+                    <Leaf className="h-24 w-24" />
+                  </div>
+                  <CardContent className="pt-6 relative z-10">
+                    <h4 className="font-headline font-bold text-lg mb-1 flex items-center gap-2">
+                      Sanjeevani Secure: Active <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                    </h4>
+                    <p className="text-[10px] text-white/80 leading-relaxed">Your data is stored in the National Niramaya Cloud using AES-256 encryption. Consent is required for every medical access.</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Right Column: History & Prescriptions */}
+              <div className="lg:col-span-8 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <MedicalHistory />
+                  <PrescriptionList />
                 </div>
               </div>
             </div>
