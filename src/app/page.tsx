@@ -7,12 +7,15 @@ import { AdminTrends } from "@/components/AdminTrends";
 import { AIOutbreakPredictor } from "@/components/AIOutbreakPredictor";
 import { AdminInsights } from "@/components/AdminInsights";
 import { LocationMonitor } from "@/components/LocationMonitor";
+import { RegionalHeatMap } from "@/components/RegionalHeatMap";
 import { MedicalHistory } from "@/components/MedicalHistory";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { HeartPulse, ShieldCheck, UserCircle, Activity, Sparkles, MapPin, Search } from "lucide-react";
+import { HeartPulse, ShieldCheck, UserCircle, Activity, Sparkles, MapPin, Search, CalendarClock, Download } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function HealthWiseApp() {
   const [activeTab, setActiveTab] = useState("patient");
@@ -112,7 +115,7 @@ export default function HealthWiseApp() {
                   </div>
                   <CardContent className="pt-6 relative z-10">
                     <h4 className="font-headline font-bold text-lg mb-1">NDHM Secure: Active</h4>
-                    <p className="text-xs text-white/80">Tap to any PHC or Govt Hospital kiosk to sync your history instantly.</p>
+                    <p className="text-xs text-white/80">Tap to any PHC or Govt Hospital kiosk to sync your history instantly via QR or NFC.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -128,6 +131,43 @@ export default function HealthWiseApp() {
           </TabsContent>
 
           <TabsContent value="admin" className="space-y-8 mt-0 animate-in fade-in duration-500">
+            {/* Admin Header with Filters */}
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-accent/10 shadow-sm">
+              <div className="flex items-center gap-4 flex-1 w-full md:w-auto">
+                <div className="flex items-center gap-2 bg-muted/20 p-2 rounded-lg border">
+                  <CalendarClock className="h-4 w-4 text-accent" />
+                  <Select defaultValue="7d">
+                    <SelectTrigger className="w-[140px] border-none bg-transparent focus:ring-0 h-7 text-xs">
+                      <SelectValue placeholder="Timeframe" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="24h">Last 24 Hours</SelectItem>
+                      <SelectItem value="7d">Last 7 Days</SelectItem>
+                      <SelectItem value="30d">Last 30 Days</SelectItem>
+                      <SelectItem value="90d">Last quarter</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center gap-2 bg-muted/20 p-2 rounded-lg border">
+                  <Activity className="h-4 w-4 text-accent" />
+                  <Select defaultValue="all">
+                    <SelectTrigger className="w-[160px] border-none bg-transparent focus:ring-0 h-7 text-xs">
+                      <SelectValue placeholder="Disease Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Conditions</SelectItem>
+                      <SelectItem value="flu">Seasonal Flu (ILI)</SelectItem>
+                      <SelectItem value="dengue">Dengue/Malaria</SelectItem>
+                      <SelectItem value="respiratory">Respiratory (AQI)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <Button size="sm" variant="outline" className="text-accent border-accent gap-2 h-9 w-full md:w-auto">
+                <Download className="h-4 w-4" /> Export Analytics
+              </Button>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { title: "Active Cases (India)", value: "84,203", icon: Activity, trend: "down", trendVal: "8%", color: "bg-blue-50 text-blue-600" },
@@ -158,14 +198,15 @@ export default function HealthWiseApp() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               <div className="lg:col-span-8 space-y-6">
-                <AdminTrends />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <RegionalHeatMap />
                   <LocationMonitor />
-                  <AdminInsights />
                 </div>
+                <AdminTrends />
               </div>
-              <div className="lg:col-span-4">
+              <div className="lg:col-span-4 space-y-6">
                 <AIOutbreakPredictor />
+                <AdminInsights />
               </div>
             </div>
           </TabsContent>

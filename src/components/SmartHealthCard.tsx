@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { QrCode, Wifi, ShieldCheck } from "lucide-react";
+import { QrCode, Wifi, ShieldCheck, Smartphone } from "lucide-react";
 
 interface SmartHealthCardProps {
   patientName: string;
@@ -15,6 +15,7 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
   const [pattern, setPattern] = useState<boolean[]>([]);
 
   useEffect(() => {
+    // Generate the pattern only on the client to avoid hydration mismatch
     const newPattern = Array.from({ length: 64 }).map(() => Math.random() > 0.4);
     setPattern(newPattern);
   }, []);
@@ -54,9 +55,14 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
           <div className="w-full space-y-4 text-center">
             <div className="space-y-1">
               <div className="font-bold text-xl tracking-tight text-foreground">{patientName}</div>
-              <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-                <ShieldCheck className="h-3 w-3 text-teal-600" /> Ayushman Bharat Secure (AES-256)
-              </p>
+              <div className="flex items-center justify-center gap-3">
+                 <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                  <ShieldCheck className="h-3 w-3 text-teal-600" /> ABDM AES-256
+                </p>
+                <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+                  <Smartphone className="h-3 w-3 text-blue-600" /> NFC Enabled
+                </p>
+              </div>
             </div>
             
             <div className="flex justify-center gap-3">
