@@ -91,7 +91,7 @@ export default function HealthWiseApp() {
               {/* Left Column: ID & Vitals */}
               <div className="lg:col-span-4 space-y-6">
                 <SmartHealthCard 
-                  patientName="Arjun Mehra" 
+                  patientName="Tanmay Patil" 
                   patientId="ABHA-1234-5678-9012" 
                   bloodGroup="B Positive"
                 />
