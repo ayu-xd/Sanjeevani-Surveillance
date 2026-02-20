@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for predicting potential disease outbreaks.
+ * @fileOverview A sophisticated Genkit flow for predicting potential disease outbreaks using multi-source data.
  *
  * - predictDiseaseOutbreaks - A function that handles the disease outbreak prediction process.
  * - PredictDiseaseOutbreaksInput - The input type for the predictDiseaseOutbreaks function.
@@ -11,28 +11,22 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const PredictDiseaseOutbreaksInputSchema = z.object({
-  historicalDataSummary: z
+  newsData: z
     .string()
-    .describe(
-      'A summary of historical disease patterns, outbreaks, and relevant health data.'
-    ),
-  realtimeCaseData: z
+    .describe('Aggregated health news and media reports.'),
+  socialForumsData: z
     .string()
-    .describe(
-      'A summary of current real-time health information, including recent case counts, locations, and disease types.'
-    ),
+    .describe('Social media sentiment and local forum discussions regarding health symptoms.'),
+  anonymousVitalsData: z
+    .string()
+    .describe('Anonymized, aggregated vital signs (temperature, heart rate) from connected health devices.'),
+  hospitalOpsData: z
+    .string()
+    .describe('Direct hospital reporting data including OPD footfall and diagnostic lab hits.'),
   focusArea: z
     .string()
     .optional()
-    .describe(
-      'An optional specific geographical area for which to prioritize outbreak prediction.'
-    ),
-  focusDisease: z
-    .string()
-    .optional()
-    .describe(
-      'An optional specific disease type to focus on for prediction.'
-    ),
+    .describe('An optional specific geographical area for which to prioritize outbreak prediction.'),
 });
 export type PredictDiseaseOutbreaksInput = z.infer<
   typeof PredictDiseaseOutbreaksInputSchema
@@ -50,20 +44,21 @@ const PredictDiseaseOutbreaksOutputSchema = z.object({
         severity: z
           .enum(['Critical', 'Moderate', 'Mild'])
           .describe('The predicted severity of the outbreak.'),
+        confidenceLevel: z.number().describe('A percentage confidence score for this prediction.'),
         trendDescription: z
           .string()
-          .describe(
-            'A description of the data patterns and trends leading to this prediction.'
-          ),
+          .describe('A description of the data patterns and trends leading to this prediction.'),
         preventiveMeasures: z
           .string()
           .describe('Suggested preventive measures or recommendations.'),
       })
     )
     .describe('A list of predicted disease outbreaks.'),
+  riskIndex: z.number().describe('A national health risk index (0-100) similar to a volatility index.'),
   overallAssessment: z
     .string()
     .describe('An overall assessment of the current disease surveillance situation.'),
+  forecast7Days: z.string().describe('A 7-day quantitative forecast trend.'),
 });
 export type PredictDiseaseOutbreaksOutput = z.infer<
   typeof PredictDiseaseOutbreaksOutputSchema
@@ -79,28 +74,23 @@ const predictDiseaseOutbreaksPrompt = ai.definePrompt({
   name: 'predictDiseaseOutbreaksPrompt',
   input: { schema: PredictDiseaseOutbreaksInputSchema },
   output: { schema: PredictDiseaseOutbreaksOutputSchema },
-  prompt: `You are an AI-powered disease surveillance expert.
-Your task is to analyze provided historical and real-time health data to proactively identify and predict potential disease outbreaks in specific geographical areas.
+  prompt: `You are an AI-powered disease surveillance expert operating the "Sanjeevani Predictive Engine".
+Your task is to act like a quantitative health analyst. Analyze the following data streams to predict potential disease outbreaks.
 
-### Historical Data Summary:
-{{{historicalDataSummary}}}
-
-### Real-time Case Data:
-{{{realtimeCaseData}}}
+### DATA STREAMS:
+1. News & Media: {{{newsData}}}
+2. Social & Forum Sentiment: {{{socialForumsData}}}
+3. Anonymous Vitals (IoT): {{{anonymousVitalsData}}}
+4. Hospital Operations (ABDM): {{{hospitalOpsData}}}
 
 {{#if focusArea}}
 ### Focus Area:
-Predict potential outbreaks specifically for: {{{focusArea}}}
+Priority prediction zone: {{{focusArea}}}
 {{/if}}
 
-{{#if focusDisease}}
-### Focus Disease:
-Prioritize prediction for disease type: {{{focusDisease}}}
-{{/if}}
+Identify correlations across these streams (e.g., social media mentions of "fever" preceding hospital OPD spikes). Provide a quantitative-style risk report, including a Risk Index (similar to a VIX for health) and a 7-day forecast.
 
-Carefully analyze the provided data, identify patterns and trends related to location, time, and disease type. Then, provide predictions for potential outbreaks, including the likelihood, severity, a description of the trends observed, and actionable preventive measures.
-
-Structure your response as a JSON object matching the PredictDiseaseOutbreaksOutputSchema. If no significant outbreaks are predicted, still provide an overall assessment.`,
+Structure your response as a JSON object matching the PredictDiseaseOutbreaksOutputSchema.`,
 });
 
 const predictDiseaseOutbreaksFlow = ai.defineFlow(
