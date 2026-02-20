@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, Wifi, ShieldCheck } from "lucide-react";
@@ -12,6 +13,15 @@ interface SmartHealthCardProps {
 }
 
 export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHealthCardProps) {
+  // Use state to store the random pattern after hydration to avoid SSR mismatch
+  const [pattern, setPattern] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    // Generate the random pattern only on the client after initial mount
+    const newPattern = Array.from({ length: 64 }).map(() => Math.random() > 0.4);
+    setPattern(newPattern);
+  }, []);
+
   return (
     <Card className="w-full overflow-hidden bg-gradient-to-br from-white to-primary/10 border-accent/20 shadow-sm group hover:shadow-md transition-all duration-300">
       <CardHeader className="pb-4 border-b border-accent/5 bg-accent/[0.02]">
@@ -31,10 +41,11 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
           <div className="relative p-3 bg-white rounded-2xl shadow-inner border border-accent/10">
             {/* Visual representation of a QR Code */}
             <div className="w-40 h-40 bg-foreground/5 grid grid-cols-8 grid-rows-8 gap-1.5 p-1.5 rounded-lg">
-              {Array.from({ length: 64 }).map((_, i) => (
+              {/* Fallback to a stable pattern (all off) during SSR and initial hydration */}
+              {(pattern.length > 0 ? pattern : Array(64).fill(false)).map((isActive, i) => (
                 <div 
                   key={i} 
-                  className={`rounded-sm transition-colors duration-500 ${Math.random() > 0.4 ? 'bg-accent' : 'bg-accent/10'}`} 
+                  className={`rounded-sm transition-colors duration-500 ${isActive ? 'bg-accent' : 'bg-accent/10'}`} 
                 />
               ))}
               <div className="absolute inset-0 flex items-center justify-center">
