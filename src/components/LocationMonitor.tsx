@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -7,11 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 const REGION_DATA = [
-  { name: "North Sector", cases: 420, capacity: 500, trend: "up", severity: "High" },
-  { name: "East District", cases: 280, capacity: 450, trend: "up", severity: "Moderate" },
-  { name: "South Sector", cases: 150, capacity: 600, trend: "down", severity: "Low" },
-  { name: "West Wing", cases: 310, capacity: 400, trend: "stable", severity: "Moderate" },
-  { name: "Central Plaza", cases: 95, capacity: 300, trend: "down", severity: "Low" },
+  { name: "Delhi NCR", cases: 1420, capacity: 2000, trend: "up", severity: "High" },
+  { name: "Mumbai Metro", cases: 880, capacity: 1500, trend: "up", severity: "Moderate" },
+  { name: "Bengaluru Urban", cases: 450, capacity: 1200, trend: "down", severity: "Low" },
+  { name: "Kolkata Hub", cases: 610, capacity: 1000, trend: "stable", severity: "Moderate" },
+  { name: "Chennai District", cases: 295, capacity: 900, trend: "down", severity: "Low" },
 ];
 
 export function LocationMonitor() {
@@ -19,9 +18,9 @@ export function LocationMonitor() {
     <Card className="border-accent/10 bg-white">
       <CardHeader>
         <CardTitle className="text-xl font-headline text-accent flex items-center gap-2">
-          <MapPin className="h-5 w-5" /> Location-Based Prevalence
+          <MapPin className="h-5 w-5" /> Regional Prevalence
         </CardTitle>
-        <CardDescription>Regional healthcare burden and case monitoring</CardDescription>
+        <CardDescription>Live monitoring of district-wise healthcare burden</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">
@@ -63,13 +62,13 @@ export function LocationMonitor() {
 
         <div className="pt-4 border-t flex items-center justify-around">
           <div className="text-center">
-            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Highest Trend</p>
-            <p className="text-sm font-bold text-accent">North Sector</p>
+            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Highest Spurt</p>
+            <p className="text-sm font-bold text-accent">Delhi NCR</p>
           </div>
           <div className="h-8 w-px bg-border" />
           <div className="text-center">
-            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Safest Zone</p>
-            <p className="text-sm font-bold text-teal-600">Central Plaza</p>
+            <p className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Low Transmission</p>
+            <p className="text-sm font-bold text-teal-600">Bengaluru Urban</p>
           </div>
         </div>
       </CardContent>

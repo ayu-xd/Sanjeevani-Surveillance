@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, AlertTriangle, ShieldCheck, Loader2 } from "lucide-react";
+import { Sparkles, ShieldCheck, Loader2 } from "lucide-react";
 import { predictDiseaseOutbreaks, type PredictDiseaseOutbreaksOutput } from "@/ai/flows/predict-disease-outbreaks";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -16,9 +16,9 @@ export function AIOutbreakPredictor() {
     setLoading(true);
     try {
       const result = await predictDiseaseOutbreaks({
-        historicalDataSummary: "Historical data shows peak flu season in the North during Nov-Jan. Last year East region saw a spike in Malaria cases during monsoons.",
-        realtimeCaseData: "Current data: 15% increase in respiratory cases in the North. West region reporting higher than average fever cases.",
-        focusArea: "North and West regions"
+        historicalDataSummary: "Historical data for Delhi/UP region indicates peak Dengue cases post-monsoon (Sept-Nov). West Bengal typically see higher Malaria incidences during rainy season.",
+        realtimeCaseData: "Current Trends: 20% rise in respiratory complaints in Delhi NCR due to AQI levels. Mumbai reports a localized cluster of viral fever cases in suburban districts.",
+        focusArea: "Delhi NCR and Mumbai Suburban"
       });
       setPrediction(result);
     } catch (error) {
@@ -33,9 +33,9 @@ export function AIOutbreakPredictor() {
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="space-y-1">
           <CardTitle className="text-xl font-headline text-accent flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-teal-600" /> AI Outbreak Prediction
+            <Sparkles className="h-5 w-5 text-teal-600" /> AI Outbreak Forecaster
           </CardTitle>
-          <CardDescription>Predicting trends based on historical and real-time data</CardDescription>
+          <CardDescription>Predicting regional trends for Indian districts</CardDescription>
         </div>
         <Button 
           onClick={runPrediction} 
@@ -44,13 +44,13 @@ export function AIOutbreakPredictor() {
           className="border-accent text-accent hover:bg-accent hover:text-white"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
-          Run Analysis
+          Run AI Forecast
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">
         {prediction ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid gap-4">
               {prediction.predictedOutbreaks.map((outbreak, idx) => (
                 <div key={idx} className="bg-white p-4 rounded-lg border shadow-sm space-y-3">
                   <div className="flex justify-between items-start">
@@ -69,7 +69,7 @@ export function AIOutbreakPredictor() {
                   <div className="bg-primary/10 p-2 rounded flex items-start gap-2">
                     <ShieldCheck className="h-4 w-4 text-accent mt-0.5 shrink-0" />
                     <div className="text-xs">
-                      <span className="font-semibold block text-accent">Prevention:</span>
+                      <span className="font-semibold block text-accent">MoHFW Recommendation:</span>
                       {outbreak.preventiveMeasures}
                     </div>
                   </div>
@@ -78,7 +78,7 @@ export function AIOutbreakPredictor() {
             </div>
             <Alert className="bg-white border-accent/20">
               <AlertTitle className="text-accent flex items-center gap-2">
-                Overall Health Assessment
+                National Health Assessment
               </AlertTitle>
               <AlertDescription className="text-sm">
                 {prediction.overallAssessment}
@@ -87,7 +87,7 @@ export function AIOutbreakPredictor() {
           </>
         ) : (
           <div className="text-center py-12 text-muted-foreground border-2 border-dashed rounded-xl border-accent/10">
-            <p>Click "Run Analysis" to generate AI-powered predictions</p>
+            <p>Initiate AI Analysis for real-time district forecasts</p>
           </div>
         )}
       </CardContent>

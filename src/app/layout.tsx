@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'HealthWise | Smart Healthcare History & Disease Surveillance',
-  description: 'A digital healthcare platform for centralized medical records and AI-powered disease surveillance.',
+  title: 'Arogya Bharat | National Digital Health Stack & Surveillance',
+  description: 'A unified healthcare platform for India, featuring centralized medical records and AI-powered disease surveillance.',
 };
 
 export default function RootLayout({

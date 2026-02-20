@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,29 +6,29 @@ import { Calendar, Stethoscope, Activity, FileText } from "lucide-react";
 
 const HISTORY_EVENTS = [
   {
-    date: "Dec 15, 2024",
+    date: "Jan 22, 2025",
     type: "Diagnostic Lab",
-    title: "Complete Blood Count (CBC)",
-    provider: "City Diagnostics Lab",
-    summary: "All parameters within normal range. Platelet count slightly elevated.",
+    title: "Routine Blood Profile",
+    provider: "Apollo Diagnostics, Delhi",
+    summary: "Hemoglobin and vitamins within expected ranges. Advised Vitamin D supplements.",
     icon: Activity,
     color: "bg-blue-100 text-blue-700"
   },
   {
-    date: "Oct 12, 2024",
+    date: "Nov 05, 2024",
     type: "Consultation",
-    title: "Annual Health Checkup",
-    provider: "Dr. Sarah Smith • City General Hospital",
-    summary: "Patient is in good health. BP normal (120/80). Continue Lisinopril for mild hypertension management.",
+    title: "General Physician Visit",
+    provider: "Dr. Rajesh Gupta • AIIMS Delhi",
+    summary: "Patient complained of seasonal allergies. Prescribed anti-histamines. Vitals stable.",
     icon: Stethoscope,
     color: "bg-teal-100 text-teal-700"
   },
   {
-    date: "Aug 05, 2024",
+    date: "Aug 15, 2024",
     type: "Vaccination",
-    title: "Annual Flu Shot",
-    provider: "Community Health Center",
-    summary: "Influenza vaccine administered. No immediate adverse reactions noted.",
+    title: "Covaxin Booster Dose",
+    provider: "Public Health Center (PHC), Mumbai",
+    summary: "Third booster dose administered successfully. Digital certificate synced to ABHA.",
     icon: FileText,
     color: "bg-purple-100 text-purple-700"
   }
@@ -40,7 +39,7 @@ export function MedicalHistory() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold text-accent flex items-center gap-2">
-          <Calendar className="h-5 w-5" /> Medical Record Timeline
+          <Calendar className="h-5 w-5" /> Medical History (ABHA Sync)
         </h3>
       </div>
       

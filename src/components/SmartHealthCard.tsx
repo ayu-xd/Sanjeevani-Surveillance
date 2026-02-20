@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,11 +12,9 @@ interface SmartHealthCardProps {
 }
 
 export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHealthCardProps) {
-  // Use state to store the random pattern after hydration to avoid SSR mismatch
   const [pattern, setPattern] = useState<boolean[]>([]);
 
   useEffect(() => {
-    // Generate the random pattern only on the client after initial mount
     const newPattern = Array.from({ length: 64 }).map(() => Math.random() > 0.4);
     setPattern(newPattern);
   }, []);
@@ -27,11 +24,11 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
       <CardHeader className="pb-4 border-b border-accent/5 bg-accent/[0.02]">
         <div className="flex justify-between items-start">
           <div className="flex flex-col">
-            <CardTitle className="text-xl font-headline text-accent">HealthWise</CardTitle>
-            <CardDescription className="text-xs font-semibold tracking-wide uppercase opacity-70">Unified Digital Reference</CardDescription>
+            <CardTitle className="text-xl font-headline text-accent">ABHA ID Card</CardTitle>
+            <CardDescription className="text-xs font-semibold tracking-wide uppercase opacity-70">Digital Health ID India</CardDescription>
           </div>
           <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-teal-500 animate-pulse" title="NFC Active" />
+            <div className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" title="Secure Sync" />
             <Wifi className="h-5 w-5 text-accent/50" />
           </div>
         </div>
@@ -39,9 +36,7 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
       <CardContent className="pt-8">
         <div className="flex flex-col items-center gap-6">
           <div className="relative p-3 bg-white rounded-2xl shadow-inner border border-accent/10">
-            {/* Visual representation of a QR Code */}
             <div className="w-40 h-40 bg-foreground/5 grid grid-cols-8 grid-rows-8 gap-1.5 p-1.5 rounded-lg">
-              {/* Fallback to a stable pattern (all off) during SSR and initial hydration */}
               {(pattern.length > 0 ? pattern : Array(64).fill(false)).map((isActive, i) => (
                 <div 
                   key={i} 
@@ -60,13 +55,13 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
             <div className="space-y-1">
               <div className="font-bold text-xl tracking-tight text-foreground">{patientName}</div>
               <p className="text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-                <ShieldCheck className="h-3 w-3 text-teal-600" /> Secure Encryption HW-RSA
+                <ShieldCheck className="h-3 w-3 text-teal-600" /> Ayushman Bharat Secure (AES-256)
               </p>
             </div>
             
             <div className="flex justify-center gap-3">
               <div className="flex flex-col items-center px-4 py-2 bg-white rounded-lg border border-accent/5 shadow-sm">
-                <span className="text-[10px] font-bold text-muted-foreground uppercase">Patient ID</span>
+                <span className="text-[10px] font-bold text-muted-foreground uppercase">ABHA ID</span>
                 <span className="text-xs font-mono font-bold text-accent">{patientId}</span>
               </div>
               <div className="flex flex-col items-center px-4 py-2 bg-white rounded-lg border border-accent/5 shadow-sm">
@@ -77,7 +72,7 @@ export function SmartHealthCard({ patientName, patientId, bloodGroup }: SmartHea
           </div>
         </div>
       </CardContent>
-      <div className="h-1.5 w-full bg-gradient-to-r from-teal-400 via-accent to-blue-400" />
+      <div className="h-1.5 w-full bg-gradient-to-r from-orange-400 via-white to-green-400" />
     </Card>
   );
 }

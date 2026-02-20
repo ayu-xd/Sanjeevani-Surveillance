@@ -1,19 +1,19 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Legend } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const data = [
-  { region: "North", flu: 400, malaria: 240, dengue: 120 },
-  { region: "South", flu: 300, malaria: 139, dengue: 280 },
-  { region: "East", flu: 200, malaria: 980, dengue: 390 },
-  { region: "West", flu: 278, malaria: 390, dengue: 190 },
-  { region: "Central", flu: 189, malaria: 480, dengue: 480 },
+  { region: "Delhi", flu: 850, malaria: 120, dengue: 450 },
+  { region: "Mumbai", flu: 600, malaria: 340, dengue: 580 },
+  { region: "Bengaluru", flu: 400, malaria: 100, dengue: 290 },
+  { region: "Kolkata", flu: 500, malaria: 680, dengue: 790 },
+  { region: "Chennai", flu: 300, malaria: 420, dengue: 380 },
 ];
 
 const chartConfig = {
-  flu: { label: "Flu", color: "hsl(var(--chart-1))" },
+  flu: { label: "Flu/ILI", color: "hsl(var(--chart-1))" },
   malaria: { label: "Malaria", color: "hsl(var(--chart-2))" },
   dengue: { label: "Dengue", color: "hsl(var(--chart-3))" },
 };
@@ -22,8 +22,8 @@ export function AdminTrends() {
   return (
     <Card className="w-full bg-card/50 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="text-xl font-headline text-accent">Disease Prevalence by Region</CardTitle>
-        <CardDescription>Real-time surveillance based on location data</CardDescription>
+        <CardTitle className="text-xl font-headline text-accent">Disease Prevalence (Tier 1 Cities)</CardTitle>
+        <CardDescription>Consolidated national data from IDSP integration</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[350px] w-full">
