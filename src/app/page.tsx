@@ -5,7 +5,6 @@ import { SmartHealthCard } from "@/components/SmartHealthCard";
 import { PrescriptionList } from "@/components/PrescriptionList";
 import { AdminTrends } from "@/components/AdminTrends";
 import { AIOutbreakPredictor } from "@/components/AIOutbreakPredictor";
-import { AdminInsights } from "@/components/AdminInsights";
 import { LocationMonitor } from "@/components/LocationMonitor";
 import { RegionalHeatMap } from "@/components/RegionalHeatMap";
 import { MedicalHistory } from "@/components/MedicalHistory";
@@ -231,7 +230,6 @@ export default function HealthWiseApp() {
                   </div>
                   <div className="lg:col-span-4 space-y-6">
                     <AIOutbreakPredictor />
-                    <AdminInsights />
                   </div>
                 </div>
               </div>

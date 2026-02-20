@@ -3,11 +3,10 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ShieldCheck, Loader2, Database, Globe, MessageSquare, Activity, Hospital, TrendingUp, AlertTriangle } from "lucide-react";
+import { Sparkles, ShieldCheck, Loader2, Database, Globe, MessageSquare, Activity, Hospital, TrendingUp, AlertTriangle, Zap, Server } from "lucide-react";
 import { predictDiseaseOutbreaks, type PredictDiseaseOutbreaksOutput } from "@/ai/flows/predict-disease-outbreaks";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 
 export function AIOutbreakPredictor() {
   const [loading, setLoading] = useState(false);
@@ -16,12 +15,13 @@ export function AIOutbreakPredictor() {
   const runPrediction = async () => {
     setLoading(true);
     try {
+      // Injecting random/buzzword heavy data for the quant health model
       const result = await predictDiseaseOutbreaks({
-        newsData: "National media reporting sudden school closures in Noida due to 'unknown viral symptoms'. Global health reports indicate a new H1N1 variant in neighboring countries.",
-        socialForumsData: "Twitter/X trends: #DelhiPollution and #Fever are up 300% in local NCR geo-tags. Reddit 'r/delhi' has multiple threads about recurring cough in children.",
-        anonymousVitalsData: "IoT Data (Niramaya Cloud): 15% increase in average body temperature readings across 12,000 anonymized devices in South Delhi over the last 48 hours.",
-        hospitalOpsData: "ABDM Dashboard: OPD registrations for respiratory distress up by 40% in Safdarjung and Max Healthcare. Antibiotic prescriptions peaking in district pharmacies.",
-        focusArea: "Delhi NCR Region"
+        newsData: "Hyper-local news scrapers detecting 'flu-cluster' spikes in Noida/Greater Noida. Global bio-surveillance nodes reporting H1N1-v2 volatility. Real-time media sentiment trending towards 'pediatric respiratory distress'.",
+        socialForumsData: "Social listening vectors: #DelhiFlu up 450%. Reddit/r/India sub-threads identifying cough-latency anomalies in South Delhi cohorts. High-frequency symptom keyword ingestion hitting 99th percentile.",
+        anonymousVitalsData: "IoT Niramaya Ingestion: Aggregating 50k+ anonymized heart-rate and thermal vectors. Detecting 2.3 standard deviation shift in average diurnal temperature across Delhi-NCR bio-zone.",
+        hospitalOpsData: "ABDM 3.1 Gateway: High-concurrency OPD hits in tertiary care centers. Diagnostic lab throughput showing 35% surge in ILI-markers. Pharmaceutical supply-chain liquidity decreasing for broad-spectrum antivirals.",
+        focusArea: "Pan-India Sovereignty Zone"
       });
       setPrediction(result);
     } catch (error) {
@@ -36,9 +36,9 @@ export function AIOutbreakPredictor() {
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="space-y-1">
           <CardTitle className="text-xl font-headline text-accent flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-teal-600" /> Sanjeevani Predictive Engine
+            <Zap className="h-5 w-5 text-amber-500" /> Sanjeevani Predictive Engine
           </CardTitle>
-          <CardDescription>Multi-source Quantitative Health Analysis</CardDescription>
+          <CardDescription>High-Frequency Symptom Ingestion & Backtesting</CardDescription>
         </div>
         <Button 
           onClick={runPrediction} 
@@ -46,19 +46,19 @@ export function AIOutbreakPredictor() {
           variant="outline"
           className="border-accent text-accent hover:bg-accent hover:text-white transition-all font-bold"
         >
-          {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Database className="h-4 w-4 mr-2" />}
-          INITIATE INGESTION
+          {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Server className="h-4 w-4 mr-2" />}
+          EXECUTE INGESTION
         </Button>
       </CardHeader>
       
       <CardContent className="space-y-6">
-        {/* Data Sources Visualizer */}
+        {/* Data Sources Visualizer with Buzzwords */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "NEWS", icon: Globe, status: loading ? "ingesting" : "synced", color: "text-blue-500" },
-            { label: "FORUMS", icon: MessageSquare, status: loading ? "parsing" : "synced", color: "text-purple-500" },
-            { label: "VITALS", icon: Activity, status: loading ? "aggregating" : "synced", color: "text-teal-500" },
-            { label: "HOSPITAL", icon: Hospital, status: loading ? "validating" : "synced", color: "text-red-500" },
+            { label: "OSINT FEED", icon: Globe, status: loading ? "parsing" : "synced", color: "text-blue-500" },
+            { label: "SOCIAL VECTORS", icon: MessageSquare, status: loading ? "weighting" : "synced", color: "text-purple-500" },
+            { label: "IoT TELEMETRY", icon: Activity, status: loading ? "normalizing" : "synced", color: "text-teal-500" },
+            { label: "HOSPITAL OPS", icon: Hospital, status: loading ? "validating" : "synced", color: "text-red-500" },
           ].map((src, idx) => (
             <div key={idx} className="bg-white p-3 rounded-lg border flex flex-col items-center gap-2 shadow-sm">
               <src.icon className={`h-4 w-4 ${src.color} ${loading ? 'animate-pulse' : ''}`} />
@@ -79,11 +79,11 @@ export function AIOutbreakPredictor() {
               </div>
               <div className="flex justify-between items-center relative z-10">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">Health Volatility (HVIX)</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest opacity-80">Predictive Alpha (HVIX)</p>
                   <p className="text-4xl font-black">{prediction.riskIndex}.0</p>
                 </div>
                 <div className="text-right">
-                  <Badge variant="outline" className="text-white border-white/40 mb-1">LIVE FORECAST</Badge>
+                  <Badge variant="outline" className="text-white border-white/40 mb-1 font-mono">BACKTESTED</Badge>
                   <p className="text-[10px] font-bold opacity-80">{prediction.forecast7Days}</p>
                 </div>
               </div>
@@ -96,7 +96,7 @@ export function AIOutbreakPredictor() {
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="font-black text-accent uppercase tracking-tight">{outbreak.disease}</h4>
-                        <Badge variant="outline" className="text-[9px] font-mono">{outbreak.confidenceLevel}% CONF</Badge>
+                        <Badge variant="outline" className="text-[9px] font-mono">{outbreak.confidenceLevel}% SIGMA</Badge>
                       </div>
                       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{outbreak.area}</p>
                     </div>
@@ -113,7 +113,7 @@ export function AIOutbreakPredictor() {
                   <div className="bg-primary/5 p-3 rounded-lg flex items-start gap-3 border border-primary/10">
                     <ShieldCheck className="h-4 w-4 text-accent mt-0.5 shrink-0" />
                     <div className="text-[10px]">
-                      <span className="font-black block text-accent uppercase tracking-widest mb-1">Preventive Strategy</span>
+                      <span className="font-black block text-accent uppercase tracking-widest mb-1">Mitigation Protocol</span>
                       {outbreak.preventiveMeasures}
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export function AIOutbreakPredictor() {
             <Alert className="bg-white border-amber-200 shadow-sm">
               <AlertTriangle className="h-4 w-4 text-amber-600" />
               <AlertTitle className="text-amber-800 font-bold text-xs uppercase tracking-widest">
-                Executive Assessment
+                Quant Assessment
               </AlertTitle>
               <AlertDescription className="text-xs font-medium text-amber-900/80">
                 {prediction.overallAssessment}
@@ -134,8 +134,8 @@ export function AIOutbreakPredictor() {
         ) : (
           <div className="text-center py-20 text-muted-foreground border-2 border-dashed rounded-xl border-accent/10 bg-white/50">
             <Sparkles className="h-10 w-10 mx-auto mb-4 opacity-20" />
-            <p className="text-sm font-bold text-accent/40 uppercase tracking-widest">Awaiting Command Input</p>
-            <p className="text-[10px] max-w-[200px] mx-auto mt-2 leading-relaxed">System is ready to aggregate News, Social, and IoT streams for predictive modeling.</p>
+            <p className="text-sm font-bold text-accent/40 uppercase tracking-widest">Standby for Signal Detection</p>
+            <p className="text-[10px] max-w-[200px] mx-auto mt-2 leading-relaxed">Engine is primed for multi-vector ingestion (OSINT, IoT, ABDM). Press execute to run predictive backtesting.</p>
           </div>
         )}
       </CardContent>
