@@ -69,12 +69,7 @@ export default function HealthWiseApp() {
 
       <main className="max-w-7xl mx-auto p-4 md:p-8 space-y-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <h2 className="text-3xl font-headline font-bold text-accent">Unified Health Interface</h2>
-              <p className="text-muted-foreground mt-1 text-sm">Welcome back. Accessing encrypted records via your Swasthya ID.</p>
-            </div>
-            
+          <div className="flex justify-center md:justify-end mb-4">
             <TabsList className="grid grid-cols-2 md:w-[360px] bg-white border border-accent/10 shadow-sm p-1">
               <TabsTrigger value="patient" className="data-[state=active]:bg-primary/30 data-[state=active]:text-accent rounded-sm h-8 font-bold">
                 <UserCircle className="h-4 w-4 mr-2" /> Swasthya Portal
